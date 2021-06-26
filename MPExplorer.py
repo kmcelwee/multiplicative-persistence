@@ -1,12 +1,15 @@
+import typer
 import json
 import time
 from os.path import join as pjoin
+
+app = typer.Typer(name="Multiplicative Persistence Explorer", add_completion=False)
 
 
 class MPExplorer:
     """Object that can be used to explore a given range of integers for additions to the MP Tree"""
 
-    def __init__(self, input_dict, output_dir="output"):
+    def __init__(self, input_dict={}, output_dir="output"):
         self.input_dict = input_dict
         self.output_dir = output_dir
 
@@ -205,7 +208,7 @@ class MPExplorer:
                         d[string] = d.get(string, []) + [[num, (0, th, t, s)]]
 
         json_file = pjoin(self.output_dir, f"dict_f{end}.json")
-        with open(json_file, "wb") as f:
+        with open(json_file, "w") as f:
             json.dump(d, f, indent=4)
 
         print(f"{json_file} saved")
@@ -213,14 +216,31 @@ class MPExplorer:
             f"Searching from {beg} to {end} took {time.time() - tic} seconds to complete."
         )
 
+@app.command()
+def main(
+    start: int = typer.Option(
+        None,
+        "--start",
+        "-s",
+        help="What power should the MP search begin with?",
+    ),
+    end: int = typer.Option(
+        # A triple dot makes this "option" required. It's doesn't follow CLI
+        #  convention but it makes for clearer shell commands
+        ..., 
+        "--end",
+        "-e",
+        help="What power should the MP search end with?",
+    ),
+):
+    if start:
+        old = f"output/dict_f{start}.json"
+        with open(old, "r") as f:
+            d_o = json.load(f)
+        mpe = MPExplorer(input_dict=d_o)
+    else:
+        mpe = MPExplorer()
+    mpe.expand_dict(start, end)
 
 if __name__ == "__main__":
-    beg = 475
-    end = 476
-    old = f"output/dict_f{beg}.json"
-
-    with open(old, "rb") as f:
-        d_o = json.load(f)
-
-    mpe = MPExplorer(d_o)
-    mpe.expand_dict(beg, end)
+    app()

@@ -4,6 +4,7 @@ import numpy as np
 import time
 import matplotlib.pyplot as plt
 
+
 def stringify(num):
     l = [0] * 10
 
@@ -319,7 +320,7 @@ def tree_height(tree):
         return None
 
 
-# # Use functions
+# Use functions
 beg = 475
 end = 476
 old = f"dict_f{beg}.json"
