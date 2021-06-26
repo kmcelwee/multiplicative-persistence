@@ -249,6 +249,8 @@ def search(
         help="What power should the MP search begin with?",
     ),
 ):
+    assert start < end, "start value must be less than end value"
+    assert 0 <= start < end, "start and end values must be greater than 0"
     mpe = MPExplorer()
     mpe.expand_dict(start, end)
 
