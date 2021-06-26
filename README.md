@@ -35,3 +35,15 @@ Say, for example, we are looking for a node upstream of 5. 5’s factors are 1 a
 
 ### Visualizing MP Trees
 The [`visualize_tree`](https://github.com/kmcelwee/multiplicative-persistence/blob/main/multiplicative_persistence/visualize_tree) folder contains functions that transform our main dictionary into a nested json that can be used in a D3 tree object, as shown in the Medium article.
+
+---
+
+### Install black pre-commit
+
+In order to follow black style guidelines, simply run the following command:
+
+```sh
+pre-commit install
+```
+
+This will prevent you from committing un-styled code.
