@@ -1,4 +1,4 @@
-import pickle
+import json
 import time
 from os.path import join as pjoin
 
@@ -204,11 +204,11 @@ class MPExplorer:
                         string = stringify(num)
                         d[string] = d.get(string, []) + [[num, (0, th, t, s)]]
 
-        pickle_file = pjoin(self.output_dir, f"dict_f{end}.pickle")
-        with open(pickle_file, "wb") as f:
-            pickle.dump(d, f)
+        json_file = pjoin(self.output_dir, f"dict_f{end}.json")
+        with open(json_file, "wb") as f:
+            json.dump(d, f, indent=4)
 
-        print(f"{pickle_file} saved")
+        print(f"{json_file} saved")
         print(
             f"Searching from {beg} to {end} took {time.time() - tic} seconds to complete."
         )
@@ -217,10 +217,10 @@ class MPExplorer:
 if __name__ == "__main__":
     beg = 475
     end = 476
-    old = f"output/dict_f{beg}.pickle"
+    old = f"output/dict_f{beg}.json"
 
     with open(old, "rb") as f:
-        d_o = pickle.load(f)
+        d_o = json.load(f)
 
     mpe = MPExplorer(d_o)
     mpe.expand_dict(beg, end)

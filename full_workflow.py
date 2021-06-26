@@ -1,16 +1,8 @@
 #!/usr/bin/env python
-import pickle
 import json
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-
-# # Expand dictionary
-#
-# All functions necessary to expand the factor dictionary. Forgive the repetitiveness / lack of brevity.
-
-# In[2]:
-
 
 def stringify(num):
     l = [0] * 10
@@ -205,8 +197,8 @@ def expand_dict(d, beg, end):
                     string = stringify(num)
                     d[string] = d.get(string, []) + [[num, (0, th, t, s)]]
 
-    with open(f"dict_f{end}.pickle", "wb") as f:
-        pickle.dump(d, f)
+    with open(f"dict_f{end}.json", "wb") as f:
+        json.dump(d, f, indent=4)
 
     return d
 
@@ -330,10 +322,10 @@ def tree_height(tree):
 # # Use functions
 beg = 475
 end = 476
-old = f"dict_f{beg}.pickle"
+old = f"dict_f{beg}.json"
 
-with open(old, "rb") as f:
-    d_o = pickle.load(f)
+with open(old, "r") as f:
+    d_o = json.load(f)
 tic = time.time()
 d_n = expand_dict(d_o, beg, end)
 
