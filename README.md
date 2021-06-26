@@ -17,10 +17,21 @@ pip install -r requirements.txt
 The command...
 
 ```sh
-python MPExplorer.py --start 475 --end 476
+python MPExplorer.py search --start 475 --end 476
 ```
 
-...will expand the two MP cubes from the powers 475 to 476.
+...will expand the two MP cubes from the powers 475 to 476. Full CLI:
+
+```
+Usage: MPExplorer.py search [OPTIONS]
+
+Options:
+  -e, --end INTEGER    What power should the MP search end with?  [required]
+  -s, --start INTEGER  What power should the MP search begin with?  [default:
+                       0]
+
+  --help               Show this message and exit.
+```
 
 
 ### All Solutions
