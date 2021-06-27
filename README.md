@@ -19,20 +19,23 @@ pip install -r requirements.txt
 The command...
 
 ```sh
-python MPExplorer.py search --start 475 --end 476
+python cli.py --start 475 --end 476
 ```
 
 ...will expand the two MP cubes from the powers 475 to 476. Full CLI:
 
 ```
-Usage: MPExplorer.py search [OPTIONS]
+Usage: cli.py [OPTIONS]
 
 Options:
-  -e, --end INTEGER    What power should the MP search end with?  [required]
-  -s, --start INTEGER  What power should the MP search begin with?  [default:
-                       0]
+  -s, --start INTEGER    What power should the MP search begin with?
+                         [required]
 
-  --help               Show this message and exit.
+  -e, --end INTEGER      What power should the MP search end with?  [required]
+  -o, --output-dir TEXT  The directory where the output JSON be written
+                         [default: output]
+
+  --help                 Show this message and exit.
 ```
 
 
