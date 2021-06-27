@@ -26,3 +26,32 @@ class TestMpNumberVariant:
     def test_to_list(self):
         variant = MpNumberVariant(5, (0, 0, 1, 0))
         assert variant.to_list() == [5, (0, 0, 1, 0)]
+
+    def test_prime_factor(self):
+        assert MpNumberVariant.prime_factor(n=27648) == [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+        ]
+        assert MpNumberVariant.prime_factor(n=27648, collapse=True) == [10, 3, 0, 0]
+
+        assert MpNumberVariant.prime_factor(n=4723) == []
+
+    def test_collapse_prime_factor(self):
+        prime_factorization = MpNumberVariant.prime_factor(27648)
+        assert MpNumberVariant._collapse_prime_factor(prime_factorization) == [
+            10,
+            3,
+            0,
+            0,
+        ]

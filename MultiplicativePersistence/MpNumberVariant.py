@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+
 class MpNumberVariant:
     """storing the base_10 and power_representation of an integer"""
 
@@ -20,6 +23,30 @@ class MpNumberVariant:
 
     def to_list(self):
         return [self.base_10, self.power_tuple]
+
+    @classmethod
+    def prime_factor(self, n=None, collapse=False):
+        """given n, return prime factorization under 10 (2, 3, 5, 7)"""
+
+        l = []
+        primes = [2, 3, 5, 7]
+        for p in primes:
+            while (n % p == 0) and (n != 1):
+                n /= p
+                l.append(p)
+
+        return_list = l if n == 1 else []
+        if collapse:
+            return self._collapse_prime_factor(return_list)
+        else:
+            return return_list
+
+    @classmethod
+    def _collapse_prime_factor(self, prime_factor_l):
+        d = defaultdict(int)
+        for prime in prime_factor_l:
+            d[prime] += 1
+        return [d[2], d[3], d[5], d[7]]
 
     @classmethod
     def digit_count(self, integer):
