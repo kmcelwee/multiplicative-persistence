@@ -15,6 +15,9 @@ class MpNumberVariant:
     def __str__(self):
         return f"2^{self.two_power} * 3^{self.three_power} * 5^{self.five_power} * 7^{self.seven_power}"
 
+    def __repr__(self):
+        return str(self)
+
     @classmethod
     def digit_count(self, integer):
         """Create a condensed string that counts all digits from 2 to 9 (the digits important to MP analysis"""
