@@ -2,6 +2,8 @@
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+[![pytest](https://github.com/kmcelwee/multiplicative-persistence/actions/workflows/pytest.yaml/badge.svg)](https://github.com/kmcelwee/multiplicative-persistence/actions/workflows/pytest.yaml)
+
 For context, read the [article on Medium](https://medium.com/@kevinrmcelwee/multiplicative-persistence-is-solved-1937692b26cc).
 
 ### Installation
@@ -17,20 +19,23 @@ pip install -r requirements.txt
 The command...
 
 ```sh
-python MPExplorer.py search --start 475 --end 476
+python cli.py --start 475 --end 476
 ```
 
 ...will expand the two MP cubes from the powers 475 to 476. Full CLI:
 
 ```
-Usage: MPExplorer.py search [OPTIONS]
+Usage: cli.py [OPTIONS]
 
 Options:
-  -e, --end INTEGER    What power should the MP search end with?  [required]
-  -s, --start INTEGER  What power should the MP search begin with?  [default:
-                       0]
+  -s, --start INTEGER    What power should the MP search begin with?
+                         [required]
 
-  --help               Show this message and exit.
+  -e, --end INTEGER      What power should the MP search end with?  [required]
+  -o, --output-dir TEXT  The directory where the output JSON be written
+                         [default: output]
+
+  --help                 Show this message and exit.
 ```
 
 
