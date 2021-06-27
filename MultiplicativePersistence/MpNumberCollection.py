@@ -16,8 +16,10 @@ from MultiplicativePersistence import MpNumber, MpNumberVariant
 
 
 class MpNumberCollection:
-    def __init__(self):
+    def __init__(self, json_path=None):
         self.mp_numbers = {}
+        if json_path:
+            self.read_json(json_path)
 
     def count(self):
         return len(self.mp_numbers.keys())
