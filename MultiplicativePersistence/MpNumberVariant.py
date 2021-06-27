@@ -18,6 +18,9 @@ class MpNumberVariant:
     def __repr__(self):
         return str(self)
 
+    def to_list(self):
+        return [self.base_10, self.power_tuple]
+
     @classmethod
     def digit_count(self, integer):
         """Create a condensed string that counts all digits from 2 to 9 (the digits important to MP analysis"""

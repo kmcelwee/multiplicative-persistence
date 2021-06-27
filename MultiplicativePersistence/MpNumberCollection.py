@@ -5,13 +5,9 @@ attributes
 
     methods
         max_tree_height
-        read_json(json_path)
         to_flat_json(json_path)
         to_tree_json(json_path)
         to_tsv(path)
-        get(int)
-        add(MPNumber or int)
-        contains(MPNumber or int)
 """
 
 import json
@@ -21,38 +17,47 @@ from MultiplicativePersistence import MpNumber, MpNumberVariant
 
 class MpNumberCollection:
     def __init__(self):
-        self.MpNumbers = []
+        self.mp_numbers = {}
 
     def count(self):
-        return len(self.MpNumbers)
+        return len(self.mp_numbers.keys())
+
+    def get(self, digit_count):
+        return self.mp_numbers.get(digit_count)
+
+    def contains(self, digit_count):
+        return not self.mp_numbers.get(digit_count) is None
+
+    def add(self, variant_or_mp_number):
+        if type(variant_or_mp_number) == MpNumberVariant:
+            mp_number = self.get(variant_or_mp_number.digit_count)
+            if mp_number:
+                mp_number.add_variant(variant_or_mp_number)
+            else:
+                new_mp_number = MpNumber(variants=[variant_or_mp_number])
+                self.mp_numbers[variant_or_mp_number.digit_count] = new_mp_number
+        elif type(variant_or_mp_number) == MpNumber:
+            if self.get(variant_or_mp_number.digit_count):
+                raise Exception("Warning: you're overwriting a MpNumber!")
+            self.mp_numbers[variant_or_mp_number.digit_count] = variant_or_mp_number
+        # TODO: elif type == int
+        else:
+            raise Exception("Unknown type being added to collection.")
 
     def read_json(self, path):
         with open(path, "r") as f:
             mp_numbers = json.load(f)
 
         for digit_count, variant_list in mp_numbers.items():
-            number = MpNumber(
-                digit_count=digit_count,
-                variants=[MpNumberVariant(*variant_l) for variant_l in variant_list],
-            )
-            self.MpNumbers.append(number)
+            for variant_l in variant_list:
+                self.add(MpNumberVariant(*variant_l))
 
-        # for digit_count, variant_list in mp_numbers.items():
-        #     number = MpNumber(digit_count=digit_count)
+    def write_json(self, path):
+        output_json = {}
+        for digit_count, mp_number in self.mp_numbers.items():
+            output_json[digit_count] = [
+                variant.to_list() for variant in mp_number.variants
+            ]
 
-        #     for variant_l in variant_list:
-        #         variant = MpNumberVariant(*variant_l)
-        #         print(number)
-        #         print(variant.digit_count)
-        #         number.add_variant(variant)
-
-        #     # variants=[MpNumberVariant(*variant_l) for variant_l in variant_list],
-
-        #     self.MpNumbers.append(number)
-
-        # ODNT FORGET ABOUT ME
-        # for digit_count, variant_list in mp_numbers.items():
-
-        #     # for variant_l in variant_list:
-        #     #     variant =
-        #     #     number.add_variant(variant)
+        with open(path, "w") as f:
+            json.dump(output_json, f, indent=4)

@@ -22,3 +22,7 @@ class TestMpNumberVariant:
 
         variant = MpNumberVariant(27648, (10, 3, 0, 0))
         variant.digit_count == "1,0,1,0,1,1,1,0"
+
+    def test_to_list(self):
+        variant = MpNumberVariant(5, (0, 0, 1, 0))
+        assert variant.to_list() == [5, (0, 0, 1, 0)]
