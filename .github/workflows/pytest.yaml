@@ -1,4 +1,4 @@
-name: unit tests
+name: pytest
 
 on:
   push: # run on every push or PR to any branch

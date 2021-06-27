@@ -2,6 +2,8 @@
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+[![pytest](https://github.com/kmcelwee/multiplicative-persistence/actions/workflows/pytest.yaml/badge.svg)](https://github.com/kmcelwee/multiplicative-persistence/actions/workflows/pytest.yaml)
+
 For context, read the [article on Medium](https://medium.com/@kevinrmcelwee/multiplicative-persistence-is-solved-1937692b26cc).
 
 ### Installation
