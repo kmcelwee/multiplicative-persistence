@@ -46,6 +46,13 @@ class MpNumberCollection:
         else:
             raise Exception("Unknown type being added to collection.")
 
+    def all_variants(self):
+        """Return all the number variants contained within the collection"""
+        variants = []
+        for digit_count, mp_number in self.mp_numbers.items():
+            variants.extend(mp_number.variants)
+        return variants
+
     def read_json(self, path):
         with open(path, "r") as f:
             mp_numbers = json.load(f)

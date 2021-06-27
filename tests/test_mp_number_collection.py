@@ -72,3 +72,11 @@ class TestMpNumberCollection:
             parsed_json = json.load(f)
 
         assert original_json == parsed_json
+
+    def test_all_variants(self):
+        collection = MpNumberCollection()
+        collection.read_json(FIXTURE_PATH)
+        variants = collection.all_variants()
+
+        assert type(variants[0]) == MpNumberVariant
+        assert len(variants) == 769
