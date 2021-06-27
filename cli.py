@@ -1,31 +1,36 @@
-import Explorer
+import os
 import typer
+
+from MultiplicativePersistence import Explorer
 
 app = typer.Typer(name="Multiplicative Persistence Explorer", add_completion=False)
 
 
 @app.command()
 def search(
+    start: int = typer.Option(
+        ...,
+        "--start",
+        "-s",
+        help="What power should the MP search begin with?",
+    ),
     end: int = typer.Option(
-        # A triple dot makes this "option" required. It's doesn't follow CLI
-        #  convention but it makes for clearer shell commands
         ...,
         "--end",
         "-e",
         help="What power should the MP search end with?",
     ),
-    start: int = typer.Option(
-        0,
-        "--start",
-        "-s",
-        help="What power should the MP search begin with?",
+    output_dir: str = typer.Option(
+        "output",
+        "--output-dir",
+        "-o",
+        help="The directory where the output JSON be written",
     ),
 ):
-    assert start < end, "start value must be less than end value"
-    assert 0 <= start < end, "start and end values must be greater than 0"
-
-    mpe = MPExplorer()
-    mpe.expand_dict(start, end)
+    explorer = Explorer()
+    explorer.explore(start, end)
+    collection = explorer.collection
+    collection.write_json(os.path.join(output_dir, f"{start}-{end}.json"))
 
 
 if __name__ == "__main__":
