@@ -1,4 +1,6 @@
 from anytree import Node, RenderTree
+from unittest.mock import patch
+from io import StringIO
 
 from MultiplicativePersistence import Tree, MpNumberCollection
 
@@ -37,3 +39,11 @@ class TestTree:
 
         root_42 = tree.get_node(42)
         assert len(root_42.children) == 2
+
+    def test_print(self):
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            collection = MpNumberCollection(json_path="tests/fixtures/5-10.json")
+            tree = Tree(collection)
+            tree.print(root=42)
+
+            assert "1176" in fake_out.getvalue()

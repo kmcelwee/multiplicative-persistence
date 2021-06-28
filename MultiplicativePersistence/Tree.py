@@ -65,3 +65,8 @@ class Tree:
             this_num = self.get_digit_product(this_num)
             return_list.append(this_num)
         return list(reversed(return_list))
+
+    def print(self, root=None):
+        if root:
+            for pre, fill, node in RenderTree(self.get_node(root)):
+                print(f"{pre}{node.name}")
