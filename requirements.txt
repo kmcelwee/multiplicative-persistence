@@ -2,3 +2,4 @@ pytest
 typer
 pre-commit
 black
+anytree
