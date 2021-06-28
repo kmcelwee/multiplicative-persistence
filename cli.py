@@ -1,7 +1,7 @@
 import os
 import typer
 
-from MultiplicativePersistence import Explorer
+from MultiplicativePersistence import Explorer, Tree, MpNumberCollection
 
 app = typer.Typer(name="Multiplicative Persistence Explorer", add_completion=False)
 
@@ -31,6 +31,18 @@ def search(
     explorer.explore(start, end)
     collection = explorer.collection
     collection.write_json(os.path.join(output_dir, f"{start}-{end}.json"))
+
+
+@app.command()
+def print_tree(
+    root: int = typer.Argument(
+        default=3,
+        help="Which root should be printed?",
+    ),
+):
+    collection = MpNumberCollection(json_path="output/0-475.json")
+    tree = Tree(collection)
+    tree.print(root=root)
 
 
 if __name__ == "__main__":

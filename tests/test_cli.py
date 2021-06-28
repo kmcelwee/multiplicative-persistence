@@ -14,7 +14,14 @@ def test_search():
     assert not os.path.isfile(expected_output)
 
     result = runner.invoke(
-        app, ["--start", start, "--end", end, "--output-dir", TEST_OUTPUT_PATH]
+        app,
+        ["search", "--start", start, "--end", end, "--output-dir", TEST_OUTPUT_PATH],
     )
     assert result.exit_code == 0
     assert os.path.isfile(expected_output)
+
+
+def test_tree():
+    result = runner.invoke(app, ["print-tree", "5"])
+
+    assert result.exit_code == 0
