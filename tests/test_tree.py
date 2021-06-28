@@ -9,17 +9,17 @@ class TestTree:
         tree = Tree(collection)
         assert tree.collection == collection
 
-    def test_get_number_child(self):
-        assert Tree.get_number_child(81) == 8
-        assert Tree.get_number_child(2231) == 12
-        assert Tree.get_number_child(88341) == 768
+    def test_get_digit_product(self):
+        assert Tree.get_digit_product(81) == 8
+        assert Tree.get_digit_product(2231) == 12
+        assert Tree.get_digit_product(88341) == 768
 
     def test_get_mp_list(self):
         assert Tree.get_mp_list(18432) == [8, 18, 192, 18432]
         assert Tree.get_mp_list(0) == [0]
 
     def test_add_child(self):
-        collection = MpNumberCollection(json_path="tests/fixtures/5-10.json")
+        collection = MpNumberCollection()
         tree = Tree(collection)
         tree.add_child(15)
         five_root = tree.get_node(5)
