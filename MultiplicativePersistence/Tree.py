@@ -2,7 +2,6 @@
 TODO
 - collect helpful functions from variant and here into a utils file
 - change tree -> trees
-- print root 0 shows no values (?)
 
     methods
         build_tree
@@ -67,6 +66,6 @@ class Tree:
         return list(reversed(return_list))
 
     def print(self, root=None):
-        if root:
+        if root is not None:
             for pre, fill, node in RenderTree(self.get_node(root)):
                 print(f"{pre}{node.name}")

@@ -47,3 +47,6 @@ class TestTree:
             tree.print(root=42)
 
             assert "1176" in fake_out.getvalue()
+
+            tree.print(root=0)
+            assert "20" in fake_out.getvalue()
