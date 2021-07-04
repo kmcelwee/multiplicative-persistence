@@ -2,14 +2,13 @@
 TODO
 - collect helpful functions from variant and here into a utils file
 - change tree -> trees
-
+- print root 0 shows no values (?)
 
     methods
         build_tree
         max_height
-        generate_histogram
         write_json(json_path) # nested form
-
+        read_json(json_path)
 """
 
 from anytree import Node, RenderTree
@@ -21,7 +20,7 @@ from MultiplicativePersistence import MpNumberVariant
 class Tree:
     def __init__(self, collection):
         self.collection = collection
-        self.build_node_dict()
+        self.node_dict = self.build_node_dict()
 
     def get_node(self, num):
         """Get the sub tree of the given integer"""
@@ -49,6 +48,7 @@ class Tree:
         variants = self.collection.all_variants()
         for variant in variants:
             self.add_child(variant.base_10)
+        return self.node_dict
 
     @classmethod
     def get_digit_product(self, n):
