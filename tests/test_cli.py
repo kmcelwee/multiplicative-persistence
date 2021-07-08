@@ -23,5 +23,7 @@ def test_search():
 
 def test_tree():
     result = runner.invoke(app, ["print-tree", "5"])
+    assert result.exit_code == 0
 
+    result = runner.invoke(app, ["print-tree"])
     assert result.exit_code == 0

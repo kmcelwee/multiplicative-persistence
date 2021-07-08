@@ -36,13 +36,15 @@ def search(
 @app.command()
 def print_tree(
     root: int = typer.Argument(
-        default=3,
+        default=None,
         help="Which root should be printed?",
     ),
 ):
     collection = MpNumberCollection(json_path="output/0-475.json")
     tree = Tree(collection)
-    tree.print(root=root)
+    if root is not None:
+        tree.print(root=root)
+    tree.print_summary(root=root)
 
 
 if __name__ == "__main__":

@@ -1,17 +1,19 @@
 """
 TODO
+Refactor
 - collect helpful functions from variant and here into a utils file
 - change tree -> trees
+- remove mp prefixes
 
-    methods
-        build_tree
-        max_height
-        write_json(json_path) # nested form
-        read_json(json_path)
+methods
+    write_json(json_path) # nested form
+    read_json(json_path)
 """
 
 from anytree import Node, RenderTree
 from functools import reduce
+from rich.table import Table
+from rich.console import Console
 
 from MultiplicativePersistence import MpNumberVariant
 
@@ -41,9 +43,19 @@ class Tree:
 
             parent_node = new_node
 
+    def get_max_mp(self, root=None):
+        """
+        Given the root of the tree, find the maximum MP.
+        """
+        if root is None:
+            return max([self.get_node(i).height for i in range(10)]) + 1
+            # Test the roots of all trees
+        root_node = self.get_node(root)
+        return root_node.height + 1
+
     def build_node_dict(self):
         """Generate the trees given the provided collection"""
-        self.node_dict = {x: Node(x) for x in range(0, 10)}
+        self.node_dict = {x: Node(x) for x in range(10)}
         variants = self.collection.all_variants()
         for variant in variants:
             self.add_child(variant.base_10)
@@ -69,3 +81,17 @@ class Tree:
         if root is not None:
             for pre, fill, node in RenderTree(self.get_node(root)):
                 print(f"{pre}{node.name}")
+
+    def print_summary(self, root=None):
+        """Print a summary of the tree"""
+        table = Table(show_footer=False)
+        table.add_column("Root", justify="center")
+        table.add_column("Max MP", justify="right")
+        table.add_column("Descendant Count", justify="right")
+
+        roots = range(10) if root is None else [root]
+        for i in roots:
+            node = self.get_node(i)
+            row = [str(x) for x in [i, self.get_max_mp(root=i), len(node.descendants)]]
+            table.add_row(*row)
+        Console().print(table)

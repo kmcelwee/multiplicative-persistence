@@ -50,3 +50,9 @@ class TestTree:
 
             tree.print(root=0)
             assert "20" in fake_out.getvalue()
+
+    def test_get_max_mp(self):
+        collection = MpNumberCollection(json_path="tests/fixtures/0-475.json")
+        tree = Tree(collection)
+        assert tree.get_max_mp(root=20) == 10
+        assert tree.get_max_mp() == 11

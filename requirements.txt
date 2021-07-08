@@ -3,3 +3,4 @@ typer
 pre-commit
 black
 anytree
+rich
