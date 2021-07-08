@@ -61,12 +61,14 @@ class MpNumberCollection:
             for variant_l in variant_list:
                 self.add(MpNumberVariant(*variant_l))
 
-    def write_json(self, path):
-        output_json = {}
+    def to_dict(self):
+        d = {}
         for digit_count, mp_number in self.mp_numbers.items():
-            output_json[digit_count] = [
-                variant.to_list() for variant in mp_number.variants
-            ]
+            d[digit_count] = [variant.to_list() for variant in mp_number.variants]
+        return d
+
+    def write_json(self, path):
+        output_json = self.to_dict()
 
         with open(path, "w") as f:
             json.dump(output_json, f, indent=4)
