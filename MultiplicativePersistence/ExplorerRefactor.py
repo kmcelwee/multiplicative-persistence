@@ -39,84 +39,20 @@ class ExplorerRefactor:
                         if "0" not in str(num):
                             self.collection.add(MpNumberVariant(num, (t, th, 0, s)))
 
-        # --------------------------------------------------------------------------------------------------- #
-        # cube: 5, 3, 7
-        #     print('fives')
-        beg_p = 1 if start == 0 else start
+        # The 5, 3, 7 search space.
+        # We've already searched when 5 is to the zeroeth power, so we can skip it here.
+        for prism in prisms:
+            # If the five line (first index 0) starts (second index 0) at zero, set it to 1.
+            if prism[0][0] == 0:
+                prism[0][0] = 1
 
-        # expanded_cube:
-        for t in range(beg_p, end):
-            tp = 5 ** t
-            for th in range(start, end):
-                thp = 3 ** th
-                for s in range(start, end):
-                    sp = 7 ** s
-                    num = tp * thp * sp
-                    if "0" not in str(num):
-                        self.collection.add(MpNumberVariant(num, (0, th, t, s)))
-
-        # dim-longs
-        # 7
-        for t in range(beg_p, end):
-            tp = 5 ** t
-            for th in range(start, end):
-                thp = 3 ** th
-                for s in range(0, start):
-                    sp = 7 ** s
-                    num = tp * thp * sp
-                    if "0" not in str(num):
-                        self.collection.add(MpNumberVariant(num, (0, th, t, s)))
-
-        # 2
-        for t in range(1, start):
-            tp = 5 ** t
-            for th in range(start, end):
-                thp = 3 ** th
-                for s in range(start, end):
-                    sp = 7 ** s
-                    num = tp * thp * sp
-                    if "0" not in str(num):
-                        self.collection.add(MpNumberVariant(num, (0, th, t, s)))
-
-        # 3
-        for t in range(beg_p, end):
-            tp = 5 ** t
-            for th in range(0, start):
-                thp = 3 ** th
-                for s in range(start, end):
-                    sp = 7 ** s
-                    num = tp * thp * sp
-                    if "0" not in str(num):
-                        self.collection.add(MpNumberVariant(num, (0, th, t, s)))
-
-        # faces
-        # 2
-        for t in range(beg_p, end):
-            tp = 5 ** t
-            for th in range(0, start):
-                thp = 3 ** th
-                for s in range(0, start):
-                    sp = 7 ** s
-                    num = tp * thp * sp
-                    if "0" not in str(num):
-                        self.collection.add(MpNumberVariant(num, (0, th, t, s)))
-        # 3
-        for t in range(1, start):
-            tp = 5 ** t
-            for th in range(start, end):
-                thp = 3 ** th
-                for s in range(0, start):
-                    sp = 7 ** s
-                    num = tp * thp * sp
-                    if "0" not in str(num):
-                        self.collection.add(MpNumberVariant(num, (0, th, t, s)))
-        # 7
-        for t in range(1, start):
-            tp = 5 ** t
-            for th in range(0, start):
-                thp = 3 ** th
-                for s in range(start, end):
-                    sp = 7 ** s
-                    num = tp * thp * sp
-                    if "0" not in str(num):
-                        self.collection.add(MpNumberVariant(num, (0, th, t, s)))
+        for prism in prisms:
+            for t in range(*prism[0]):
+                tp = 5 ** t
+                for th in range(*prism[1]):
+                    thp = 3 ** th
+                    for s in range(*prism[2]):
+                        sp = 7 ** s
+                        num = tp * thp * sp
+                        if "0" not in str(num):
+                            self.collection.add(MpNumberVariant(num, (0, th, t, s)))
