@@ -4,11 +4,7 @@ from MultiplicativePersistence import Explorer, ExplorerRefactor, MpNumberCollec
 
 
 class TestExplorerRefactor:
-    def test_init(self):
-        explorer = ExplorerRefactor()
-        assert type(explorer.collection) == MpNumberCollection
-
-    def test_explorer_refactor(self):
+    def test_explore(self):
         explorer_og = Explorer()
         explorer_og.explore(5, 10)
 
