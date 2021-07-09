@@ -6,6 +6,7 @@ from MultiplicativePersistence import MpNumberCollection, MpNumberVariant
 class ExplorerRefactor:
     def __init__(self):
         self.collection = MpNumberCollection()
+        self.run_time = None
 
     def explore(self, start, end):
         """There are two cubes that need to be expanded: 2^x, 3^y, 7^z and 3^x, 5^y, and 7^z"""
@@ -56,3 +57,5 @@ class ExplorerRefactor:
                         num = tp * thp * sp
                         if "0" not in str(num):
                             self.collection.add(MpNumberVariant(num, (0, th, t, s)))
+
+        self.run_time = round(time.time() - tic, 2)
