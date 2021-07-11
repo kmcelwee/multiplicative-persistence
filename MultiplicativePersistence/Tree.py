@@ -80,7 +80,7 @@ class Tree:
     def print(self, root=None):
         if root is not None:
             for pre, fill, node in RenderTree(self.get_node(root)):
-                print(f"{pre}{node.name}")
+                Console().print(f"{pre}{node.name}")
 
     def print_summary(self, root=None):
         """Print a summary of the tree"""
