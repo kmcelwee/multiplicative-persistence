@@ -1,5 +1,7 @@
 import os
 import typer
+import datetime
+from rich.console import Console
 
 from MultiplicativePersistence import Explorer, Tree, MpNumberCollection
 
@@ -30,7 +32,13 @@ def search(
     explorer = Explorer()
     explorer.explore(start, end)
     collection = explorer.collection
-    collection.write_json(os.path.join(output_dir, f"{start}-{end}.json"))
+
+    json_path = os.path.join(output_dir, f"{start}-{end}.json")
+    collection.write_json(json_path)
+    Console().print(f'Wrote {collection.count()} MP numbers to "{json_path}"')
+    Console().print(
+        f"Process completed in {explorer.run_time} seconds. ({datetime.timedelta(seconds=explorer.run_time)})"
+    )
 
 
 @app.command()

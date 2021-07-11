@@ -17,6 +17,7 @@ class Explorer:
 
         # The 2, 3, 7 search space.
         prisms = [
+            # [2 range, 3 range, 7 range],
             # expanded cube
             [[start, end], [start, end], [start, end]],
             # longs
@@ -40,8 +41,9 @@ class Explorer:
                         if "0" not in str(num):
                             self.collection.add(MpNumberVariant(num, (t, th, 0, s)))
 
+        ##
         # The 5, 3, 7 search space.
-        # We've already searched when 5 is to the zeroeth power, so we can skip it here.
+        # We've already searched when 5 to the zeroeth power, so we can skip it here.
         for prism in prisms:
             # If the five line (first index 0) starts (second index 0) at zero, set it to 1.
             if prism[0][0] == 0:
