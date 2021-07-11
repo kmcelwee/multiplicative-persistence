@@ -72,3 +72,6 @@ class MpNumberCollection:
 
         with open(path, "w") as f:
             json.dump(output_json, f, indent=4)
+
+    def __eq__(self, other):
+        return self.to_dict() == other.to_dict()

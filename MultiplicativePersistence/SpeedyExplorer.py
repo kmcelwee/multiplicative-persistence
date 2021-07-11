@@ -3,7 +3,7 @@ import time
 from MultiplicativePersistence import MpNumberCollection, MpNumberVariant
 
 
-class Explorer:
+class SpeedyExplorer:
     def __init__(self):
         self.collection = MpNumberCollection()
         self.run_time = None
